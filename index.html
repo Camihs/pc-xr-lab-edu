@@ -93,10 +93,13 @@ const state={models:[],activeId:null,mode:'3d',rotate:false,annotations:{},attri
 const demo={id:'demo-pc',name:'Torre de computador',url:'https://files.innerscene.com/library/work-tower-desktop-pc-1e7897c7/46abfe5bd4c108ccc6e6/tower-workstation-pc.glb',size:'349 KB',source:'Innerscene · CC0'};
 const starterModels=[
 {id:'starter-pc',name:'Torre de computador',url:'https://files.innerscene.com/library/work-tower-desktop-pc-1e7897c7/46abfe5bd4c108ccc6e6/tower-workstation-pc.glb',size:'349 KB',source:'Innerscene · CC0'},
-{id:'starter-cpu',name:'Procesador CPU',url:'https://grab3d.com/dl/cpu/cpu.glb',size:'2 MB',source:'Grab3D · CC0'},
-{id:'starter-ram',name:'Memoria RAM DDR5',url:'https://grab3d.com/dl/ram-stick/ram-stick.glb',size:'1.2 MB',source:'Grab3D · CC0'},
-{id:'starter-gpu',name:'Tarjeta gráfica GPU',url:'https://grab3d.com/dl/graphics-card/graphics-card.glb',size:'1.8 MB',source:'Grab3D · CC0'},
-{id:'starter-board',name:'Placa base ATX',url:'https://grab3d.com/dl/motherboard/motherboard.glb',size:'3.2 MB',source:'Grab3D · CC0'}
+{id:'starter-mini-pc',name:'Mini computador',url:'https://files.innerscene.com/library/mini-compute-mini-pc-b45f65d1/c3a3f0e5be643ff90e23/mini-pc-computer.glb',size:'177 KB',source:'Innerscene · CC0'},
+{id:'starter-cpu',name:'Procesador con disipador',url:'https://files.innerscene.com/library/cpu-with-cooler-6590ab40/1469672686af2f133a74/cpu-with-cooler.glb',size:'10.1 MB',source:'Innerscene · CC0'},
+{id:'starter-ram',name:'Memoria RAM DDR5',url:'https://files.innerscene.com/library/ddr5-ram-stick-376e4682/3d3c657b6f13e3c82452/ddr5-ram-stick.glb',size:'3.6 MB',source:'Innerscene · CC0'},
+{id:'starter-board',name:'Placa base ATX',url:'https://files.innerscene.com/library/atx-motherboard-7794769f/f2fbd7945666da4c17b5/atx-motherboard.glb',size:'19 MB',source:'Innerscene · CC0'},
+{id:'starter-gpu',name:'Tarjeta gráfica GPU',url:'https://files.innerscene.com/library/graphics-card-mini-itx-single-fan-170-mm-ecada592/481e3d6588c7ba26e27e/graphics-card-mini-itx-single-fan-170-mm.glb',size:'627 KB',source:'Innerscene · CC0'},
+{id:'starter-ssd',name:'Unidad SSD M.2',url:'https://files.innerscene.com/library/m-2-ssd-b1fcbab1/71b163095cea5810d0ea/m-2-ssd.glb',size:'5.5 MB',source:'Innerscene · CC0'},
+{id:'starter-laptop',name:'Computador portátil',url:'https://files.innerscene.com/library/laptop-15-6-inch-open-c70532c1/1024f8839b3e0089af60/laptop-15-6-inch-open.glb',size:'2.1 MB',source:'Innerscene · CC0'}
 ];
 const components={
  'CPU':'El procesador interpreta y ejecuta instrucciones. ¿Qué relación tiene su velocidad con el rendimiento general?',
@@ -113,8 +116,30 @@ function fmtSize(n){if(!Number.isFinite(n))return 'URL externa';if(n<1024)return
 function active(){return state.models.find(m=>m.id===state.activeId)||null}
 function safeName(s){return String(s).replace(/[<>&"]/g,'').slice(0,100)}
 function addModel(model){state.models.push(model);renderModels();selectModel(model.id);toast('Modelo añadido a la biblioteca')}
-function renderModels(){const list=$('modelList');$('modelCount').textContent=state.models.length+' modelo'+(state.models.length===1?'':'s');if(!state.models.length){list.innerHTML='<div class="empty">Aún no has añadido modelos.<br>Importa un archivo GLB para comenzar.</div>';return}list.innerHTML='';state.models.forEach(m=>{const row=document.createElement('div');row.className='model-item'+(m.id===state.activeId?' active':'');const thumb=document.createElement('div');thumb.className='model-thumb';thumb.textContent='▦';const meta=document.createElement('div');meta.className='model-meta';const name=document.createElement('strong');name.textContent=m.name;const small=document.createElement('small');small.textContent=m.size+' · '+m.source;meta.append(name,small);const choose=document.createElement('button');choose.textContent='↗';choose.title='Seleccionar modelo';choose.addEventListener('click',()=>selectModel(m.id));const del=document.createElement('button');del.textContent='×';del.title='Eliminar modelo';del.addEventListener('click',()=>removeModel(m.id));row.append(thumb,meta,choose,del);row.addEventListener('click',e=>{if(e.target!==choose&&e.target!==del)selectModel(m.id)});list.append(row)})}
-function selectModel(id){const m=state.models.find(x=>x.id===id);if(!m)return;state.activeId=id;$('modelViewer').src=m.url;$('modelViewer').style.display='block';$('placeholder').style.display='none';$('activeModelName').textContent=m.name;$('modelState').textContent='Cargando modelo…';$('aiModel').value=m.name;renderModels();renderAnnotations();$('modelViewer').addEventListener('load',()=>{$('modelState').textContent='Modelo cargado';}, {once:true});$('modelViewer').addEventListener('error',()=>{$('modelState').textContent='No se pudo cargar · revisa el formato o CORS';toast('No se pudo cargar el modelo. Comprueba el archivo o la URL.')},{once:true});updateVRModel()}
+function renderModels(){const list=$('modelList');$('modelCount').textContent=state.models.length+' modelo'+(state.models.length===1?'':'s');if(!state.models.length){list.innerHTML='<div class="empty">Aún no has añadido modelos.<br>Importa un archivo GLB para comenzar.</div>';return}list.innerHTML='';state.models.forEach(m=>{const row=document.createElement('div');row.className='model-item'+(m.id===state.activeId?' active':'');const thumb=document.createElement('div');thumb.className='model-thumb';thumb.textContent='▦';const meta=document.createElement('div');meta.className='model-meta';const name=document.createElement('strong');name.textContent=m.name;const small=document.createElement('small');small.textContent=m.size+' · '+m.source+(m.status?' · '+m.status:'');meta.append(name,small);const choose=document.createElement('button');choose.textContent='↗';choose.title='Seleccionar modelo';choose.addEventListener('click',()=>selectModel(m.id));const del=document.createElement('button');del.textContent='×';del.title='Eliminar modelo';del.addEventListener('click',()=>removeModel(m.id));row.append(thumb,meta,choose,del);row.addEventListener('click',e=>{if(e.target!==choose&&e.target!==del)selectModel(m.id)});list.append(row)})}
+function selectModel(id){
+ const m=state.models.find(x=>x.id===id);if(!m)return;
+ state.activeId=id;
+ const viewer=$('modelViewer');
+ if(state.modelLoadController)state.modelLoadController.abort();
+ state.modelLoadController=new AbortController();
+ const signal=state.modelLoadController.signal;
+ m.status='Cargando';
+ viewer.style.display='block';$('placeholder').style.display='none';
+ $('activeModelName').textContent=m.name;$('modelState').textContent='Cargando '+m.name+'…';$('aiModel').value=m.name;
+ renderModels();renderAnnotations();
+ viewer.addEventListener('load',()=>{
+  if(state.activeId!==id)return;
+  m.status='Listo';$('modelState').textContent='Modelo cargado correctamente';renderModels();
+ },{once:true,signal});
+ viewer.addEventListener('error',()=>{
+  if(state.activeId!==id)return;
+  m.status='Error';$('modelState').textContent='No se pudo cargar este modelo';
+  renderModels();toast('No se pudo cargar '+m.name+'. Pulsa el modelo para intentar de nuevo.');
+ },{once:true,signal});
+ viewer.loading='eager';viewer.reveal='auto';viewer.src=m.url;
+ updateVRModel();
+}
 function removeModel(id){const m=state.models.find(x=>x.id===id);if(!m)return;if(m.objectUrl){URL.revokeObjectURL(m.objectUrl);state.objectUrls.delete(m.objectUrl)}state.models=state.models.filter(x=>x.id!==id);delete state.annotations[id];delete state.attributions[id];if(state.activeId===id){state.activeId=null;$('modelViewer').removeAttribute('src');$('modelViewer').style.display='none';$('placeholder').style.display='flex';$('activeModelName').textContent='Sin modelo seleccionado';$('modelState').textContent='Esperando archivo'}renderModels();renderAnnotations();toast('Modelo eliminado')}
 function importFiles(files){[...files].forEach(file=>{const ext=file.name.toLowerCase().split('.').pop();if(!['glb','gltf'].includes(ext)){toast('Formato no compatible: '+file.name);return}const url=URL.createObjectURL(file);state.objectUrls.add(url);addModel({id:'m-'+crypto.randomUUID(),name:file.name,url,size:fmtSize(file.size),source:'Archivo local',objectUrl:url})})}
 $('fileInput').addEventListener('change',e=>{importFiles(e.target.files);e.target.value=''});
