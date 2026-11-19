@@ -82,7 +82,7 @@
  <article class="hardware-card"><div class="hw-icon">⌗</div><h3>Periféricos</h3><p>Dispositivos de entrada y salida que permiten interactuar con el sistema informático.</p><button class="btn small ghost" data-component="Periféricos">Usar en mi reto</button></article>
 </div></section>
 <footer class="footer"><strong>XR FUSION EDU</strong> · Laboratorio inmersivo de computación · Tecnología para observar, comprender y aplicar.</footer>
-<div class="modal-backdrop" id="welcomeModal"><div class="modal intro-modal"><div class="eyebrow">XR FUSION EDU · EXPERIENCIA INTERACTIVA</div><h2>EL HARDWARE COBRA VIDA EN 3D</h2><p>Un mismo modelo puede ser observado en una pantalla, situado sobre una mesa o recorrido desde dentro. El reto no es identificar cuál tecnología impresiona más, sino cuál ayuda mejor a aprender.</p><div class="role-grid"><div class="role"><strong>OBSERVADOR</strong><span>Encuentra detalles que una imagen plana no revela.</span></div><div class="role"><strong>CONECTOR</strong><span>Relaciona los detalles con conceptos académicos.</span></div><div class="role"><strong>CRÍTICO</strong><span>Justifica cuándo conviene utilizar 3D, RA, RV u otra alternativa accesible.</span></div></div><div class="question">Si la tecnología desapareciera, ¿qué aprendizaje debería permanecer?</div><div class="button-row"><button class="btn" id="exploreFirst">Explorar primero</button><button class="btn primary" id="startModel">Iniciar con el modelo</button></div></div></div>
+<div class="modal-backdrop show" id="welcomeModal"><div class="modal intro-modal"><div class="eyebrow">XR FUSION EDU · EXPERIENCIA INTERACTIVA</div><h2>EL HARDWARE COBRA VIDA EN 3D</h2><p>Un mismo modelo puede ser observado en una pantalla, situado sobre una mesa o recorrido desde dentro. El reto no es identificar cuál tecnología impresiona más, sino cuál ayuda mejor a aprender.</p><div class="role-grid"><div class="role"><strong>OBSERVADOR</strong><span>Encuentra detalles que una imagen plana no revela.</span></div><div class="role"><strong>CONECTOR</strong><span>Relaciona los detalles con conceptos académicos.</span></div><div class="role"><strong>CRÍTICO</strong><span>Justifica cuándo conviene utilizar 3D, RA, RV u otra alternativa accesible.</span></div></div><div class="question">Si la tecnología desapareciera, ¿qué aprendizaje debería permanecer?</div><div class="button-row"><button class="btn" id="exploreFirst">Explorar primero</button><button class="btn primary" id="startModel">Iniciar con el modelo</button></div></div></div>
 <div class="modal-backdrop" id="diagnosticModal"><div class="modal"><div class="eyebrow">Estado del dispositivo</div><h2>Diagnóstico de compatibilidad</h2><p>La disponibilidad de RA y RV depende del navegador, el dispositivo y los permisos del sistema.</p><div class="diag-list" id="diagList"></div><button class="btn primary" id="closeDiagnostic">Cerrar diagnóstico</button></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -124,20 +124,31 @@ function selectModel(id){
  if(state.modelLoadController)state.modelLoadController.abort();
  state.modelLoadController=new AbortController();
  const signal=state.modelLoadController.signal;
- m.status='Cargando';
+ m.status='Cargando 0%';
  viewer.style.display='block';$('placeholder').style.display='none';
- $('activeModelName').textContent=m.name;$('modelState').textContent='Cargando '+m.name+'…';$('aiModel').value=m.name;
+ $('activeModelName').textContent=m.name;$('modelState').textContent='Preparando '+m.name+'…';$('aiModel').value=m.name;
  renderModels();renderAnnotations();
+ viewer.addEventListener('progress',e=>{
+  if(state.activeId!==id)return;
+  const p=Math.round((e.detail?.totalProgress||0)*100);
+  m.status='Cargando '+p+'%';$('modelState').textContent='Cargando '+m.name+' · '+p+'%';renderModels();
+ },{signal});
  viewer.addEventListener('load',()=>{
   if(state.activeId!==id)return;
-  m.status='Listo';$('modelState').textContent='Modelo cargado correctamente';renderModels();
+  m.status='Listo';
+  viewer.cameraTarget='auto';
+  viewer.cameraOrbit='auto auto auto';
+  viewer.updateFraming();
+  $('modelState').textContent='Modelo cargado y encuadrado';renderModels();
  },{once:true,signal});
  viewer.addEventListener('error',()=>{
   if(state.activeId!==id)return;
-  m.status='Error';$('modelState').textContent='No se pudo cargar este modelo';
-  renderModels();toast('No se pudo cargar '+m.name+'. Pulsa el modelo para intentar de nuevo.');
+  m.status='Error de carga';$('modelState').textContent='No se pudo cargar este modelo';
+  renderModels();toast('No se pudo cargar '+m.name+'. Revisa la conexión e inténtalo otra vez.');
  },{once:true,signal});
- viewer.loading='eager';viewer.reveal='auto';viewer.src=m.url;
+ viewer.loading='eager';viewer.reveal='auto';
+ viewer.cameraTarget='auto';viewer.cameraOrbit='auto auto auto';
+ viewer.src=m.url;
  updateVRModel();
 }
 function removeModel(id){const m=state.models.find(x=>x.id===id);if(!m)return;if(m.objectUrl){URL.revokeObjectURL(m.objectUrl);state.objectUrls.delete(m.objectUrl)}state.models=state.models.filter(x=>x.id!==id);delete state.annotations[id];delete state.attributions[id];if(state.activeId===id){state.activeId=null;$('modelViewer').removeAttribute('src');$('modelViewer').style.display='none';$('placeholder').style.display='flex';$('activeModelName').textContent='Sin modelo seleccionado';$('modelState').textContent='Esperando archivo'}renderModels();renderAnnotations();toast('Modelo eliminado')}
