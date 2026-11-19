@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#020b15">
+<title>PC XR LAB EDU | Equipo desarrollador</title>
+<style>
+:root{--bg:#020b15;--blue:#00b7ff;--green:#b6e800;--text:#f7fbff;--muted:#a9c4d7}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% 0%,#0b3150 0%,var(--bg) 58%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.site-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px clamp(20px,5vw,76px);border-bottom:1px solid #ffffff18;background:#020b15d9;backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.04em}.brand-mark{width:42px;height:42px;display:grid;place-items:center;border:1px solid #00b7ff80;border-radius:13px;color:var(--blue);font-size:21px}
+.nav{color:var(--muted);font-size:14px;text-decoration:none}.hero{max-width:1180px;margin:auto;padding:78px 24px 42px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--green);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.eyebrow:before{content:"";width:22px;height:1px;background:var(--green)}
+h1{font-size:clamp(38px,7vw,76px);line-height:.98;letter-spacing:-.055em;margin:20px 0 18px}h1 span{color:var(--blue)}
+.hero p{max-width:690px;margin:0 auto;color:var(--muted);font-size:clamp(15px,2vw,18px);line-height:1.75}
+.team{max-width:1180px;margin:0 auto;padding:36px 24px 90px}.section-head{text-align:center;margin-bottom:34px}.section-head h2{font-size:clamp(27px,4vw,42px);letter-spacing:-.035em;margin:0 0 10px}.section-head p{color:var(--muted);margin:0}
+.team-card{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);overflow:hidden;border:1px solid #7ddcff30;border-radius:26px;background:linear-gradient(135deg,#0a2940e8,#061522f2);box-shadow:0 28px 90px #0008}
+.photo-wrap{position:relative;min-height:480px;background:#061522;overflow:hidden}.photo-wrap img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:center 35%}
+.photo-wrap:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 65%,#06152266),linear-gradient(0deg,#06152288,transparent 35%)}
+.photo-tag{position:absolute;z-index:1;left:22px;bottom:20px;padding:9px 13px;border:1px solid #ffffff38;border-radius:999px;background:#031426bd;backdrop-filter:blur(8px);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.team-info{padding:clamp(28px,4vw,52px);display:flex;flex-direction:column;justify-content:center}.mini{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.team-info h3{font-size:clamp(27px,3vw,38px);line-height:1.1;letter-spacing:-.04em;margin:12px 0}.team-info>p{color:var(--muted);line-height:1.7;margin:0 0 24px}
+.members{list-style:none;padding:0;margin:0;display:grid;gap:12px}.members li{display:flex;align-items:center;gap:13px;padding:13px 14px;border:1px solid #ffffff16;border-radius:13px;background:#ffffff06;font-size:14px;font-weight:650;line-height:1.4}
+.number{flex:0 0 30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#00b7ff16;color:var(--blue);font-size:12px;font-weight:800}
+.footer{border-top:1px solid #ffffff16;padding:26px 20px;text-align:center;color:#7896aa;font-size:12px;letter-spacing:.04em}.footer strong{color:var(--text)}
+@media(max-width:760px){.site-header{padding:16px 20px}.team-card{grid-template-columns:1fr}.photo-wrap{min-height:420px}.photo-wrap img{object-position:center 30%}.team-info{padding:28px 22px}.hero{padding-top:58px}}
+@media(max-width:420px){.photo-wrap{min-height:360px}.members li{font-size:13px}.nav{font-size:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+</style></head>
+<body>
+<header class="site-header"><div class="brand"><span class="brand-mark">⌘</span><span>PC XR LAB EDU</span></div><a class="nav" href="#equipo">Nuestro equipo</a></header>
+<main>
+<section class="hero"><div class="eyebrow">Laboratorio inmersivo de computación</div><h1>La tecnología se explora.<br><span>El conocimiento se construye.</span></h1><p>Un espacio educativo para descubrir el hardware de los computadores mediante modelos tridimensionales, realidad aumentada y experiencias inmersivas.</p></section>
+<section class="team" id="equipo"><div class="section-head"><h2>Las personas detrás del proyecto</h2><p>Conoce al equipo creador de PC XR LAB EDU.</p></div>
+<article class="team-card"><div class="photo-wrap"><img src="assets/equipo-desarrollador.jpg" alt="Fotografía del equipo desarrollador de PC XR LAB EDU"><span class="photo-tag">Equipo desarrollador</span></div>
+<div class="team-info"><span class="mini">Creadores del proyecto</span><h3>Ideas, tecnología y aprendizaje.</h3><p>Este laboratorio nace del trabajo colaborativo y del interés por acercar el mundo de la computación a nuevas formas de exploración y aprendizaje.</p>
+<ol class="members"><li><span class="number">01</span>Andres Santiago Rangel De La Cruz</li><li><span class="number">02</span>Jorge Daniel Bordeth Jimenez</li><li><span class="number">03</span>Fredy Andres Machado Manjarres</li><li><span class="number">04</span>Sebastian David Mendoza Orozco</li></ol></div></article></section>
+</main><footer class="footer"><strong>PC XR LAB EDU</strong> · Laboratorio inmersivo de computación · Proyecto académico</footer>
+</body></html>
