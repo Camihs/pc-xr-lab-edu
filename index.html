@@ -34,19 +34,22 @@
 .intro-loading-line span{display:block;height:100%;width:0;background:linear-gradient(90deg,#00b7ff,#b6e800);border-radius:20px;animation:introLoad 2.3s ease forwards}
 .intro-loading-label{display:flex;justify-content:space-between;margin-top:9px;color:#7898ad;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
 @keyframes introLoad{0%{width:0}35%{width:42%}70%{width:76%}100%{width:100%}}
-.intro-team{margin:0 auto 22px;max-width:720px;padding:19px;border:1px solid #21445b;background:#071827cc;border-radius:20px;box-shadow:0 24px 80px #0005}
-.intro-team-label{font-size:10px;letter-spacing:.2em;color:#00b7ff;font-weight:800;text-transform:uppercase;margin-bottom:14px}
-.intro-photo-frame{height:clamp(130px,23vw,220px);border-radius:13px;border:1px dashed #38617a;background:linear-gradient(135deg,#0c2940,#071522);display:flex;align-items:center;justify-content:center;gap:16px;overflow:hidden;margin-bottom:15px}
-.intro-photo-symbol{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:#12364d;color:#00b7ff;font-size:29px;border:1px solid #2d6685}
-.intro-photo-copy{text-align:left;color:#a9c4d7;font-size:11px;line-height:1.6}
-.intro-photo-copy strong{display:block;color:#f7fbff;font-size:13px;margin-bottom:3px}
+.intro-team{margin:0 auto 22px;max-width:780px;padding:clamp(13px,2.2vw,22px);border:1px solid #21445b;background:linear-gradient(145deg,#0a2030ed,#061522f2);border-radius:22px;box-shadow:0 24px 80px #0006}
+.intro-team-label{font-size:10px;letter-spacing:.2em;color:#00b7ff;font-weight:800;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:9px}
+.intro-team-dot{width:7px;height:7px;border-radius:50%;background:#b6e800;box-shadow:0 0 12px #b6e800}
+.intro-photo-frame{position:relative;height:clamp(190px,30vw,330px);border-radius:15px;border:1px solid #38617a;background:#061522;overflow:hidden;margin-bottom:15px;isolation:isolate}
+.intro-team-photo{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#061522}
+.intro-photo-shade{position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#020b15d9);pointer-events:none}
+.intro-photo-caption{position:absolute;left:18px;right:18px;bottom:15px;text-align:left;display:flex;flex-direction:column;gap:4px;text-shadow:0 2px 10px #000}
+.intro-photo-caption strong{font-size:clamp(12px,2vw,16px);color:#fff;letter-spacing:.01em}
+.intro-photo-caption span{font-size:10px;color:#c2d9e8}
 .intro-creators{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;text-align:left}
-.intro-creator{padding:11px 12px;border:1px solid #ffffff12;background:#0a2030;border-radius:10px;color:#e9f5fc;font-size:11px;font-weight:650;line-height:1.4}
-.intro-creator:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#b6e800;margin:0 9px 1px 0}
+.intro-creator{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid #ffffff12;background:#0a2030;border-radius:10px;color:#e9f5fc;font-size:11px;font-weight:650;line-height:1.4}
+.intro-creator span{flex:0 0 25px;color:#b6e800;font-size:9px;font-weight:850;letter-spacing:.08em}
 .intro-enter{min-width:220px;padding:14px 24px;border:0;border-radius:12px;background:linear-gradient(110deg,#9ac500,#c4ed18);color:#132000;font-size:12px;font-weight:850;letter-spacing:.06em;box-shadow:0 12px 34px #9ac50025;transition:.2s}
 .intro-enter:hover{transform:translateY(-2px);filter:brightness(1.08)}
 .intro-foot{margin-top:15px;color:#668397;font-size:9px;letter-spacing:.12em}
-@media(max-width:520px){#xrIntro{padding:22px 14px}.intro-team{padding:13px}.intro-creators{grid-template-columns:1fr}.intro-photo-frame{height:120px}.intro-photo-copy{font-size:10px}}
+@media(max-width:520px){#xrIntro{padding:22px 14px}.intro-team{padding:13px}.intro-creators{grid-template-columns:1fr}.intro-photo-frame{height:190px}.intro-photo-caption{left:12px;bottom:11px}.intro-creator{font-size:10px}}
 
 </style>
 </head>
@@ -63,16 +66,17 @@
    <div class="intro-loading-label"><span>Preparando experiencia</span><span>Iniciando</span></div>
   </div>
   <section class="intro-team">
-   <div class="intro-team-label">Desarrollado por</div>
+   <div class="intro-team-label"><span class="intro-team-dot"></span> Un proyecto creado por estudiantes</div>
    <div class="intro-photo-frame">
-    <div class="intro-photo-symbol">⌁</div>
-    <div class="intro-photo-copy"><strong>Equipo creador de XR FUSION EDU</strong>Universidad del Magdalena · Proyecto académico</div>
+    <img class="intro-team-photo" src="./Gemini_Generated_Image_a8jnnca8jnnca8jn.jpg" alt="Equipo desarrollador de XR Fusion EDU" fetchpriority="high">
+    <div class="intro-photo-shade"></div>
+    <div class="intro-photo-caption"><strong>El equipo detrás de la experiencia</strong><span>Universidad del Magdalena · Proyecto académico</span></div>
    </div>
    <div class="intro-creators">
-    <div class="intro-creator">Andrés Santiago Rangel De La Cruz</div>
-    <div class="intro-creator">Jorge Daniel Bordeth Jiménez</div>
-    <div class="intro-creator">Fredy Andrés Machado Manjarres</div>
-    <div class="intro-creator">Sebastián David Mendoza Orozco</div>
+    <div class="intro-creator"><span>01</span> Andrés Santiago Rangel De La Cruz</div>
+    <div class="intro-creator"><span>02</span> Jorge Daniel Bordeth Jiménez</div>
+    <div class="intro-creator"><span>03</span> Fredy Andrés Machado Manjarres</div>
+    <div class="intro-creator"><span>04</span> Sebastián David Mendoza Orozco</div>
    </div>
   </section>
   <button class="intro-enter" id="enterXR">ENTRAR AL LABORATORIO <span aria-hidden="true">→</span></button>
