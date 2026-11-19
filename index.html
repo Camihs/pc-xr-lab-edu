@@ -148,7 +148,7 @@ function showDiagnostic(){const checks=[['Conexión segura',location.protocol===
 $('exploreFirst').addEventListener('click',()=>{$('welcomeModal').classList.remove('show')});$('startModel').addEventListener('click',()=>{$('welcomeModal').classList.remove('show');if(!state.models.length)addModel({...demo});$('viewerStage').scrollIntoView({behavior:'smooth',block:'center'})});
 $('welcomeModal').addEventListener('click',e=>{if(e.target===$('welcomeModal'))$('welcomeModal').classList.remove('show')});
 window.addEventListener('beforeunload',()=>{state.objectUrls.forEach(u=>URL.revokeObjectURL(u));if('speechSynthesis'in window)speechSynthesis.cancel()});
-if(!sessionStorage.getItem('xr-welcome-seen')){$('welcomeModal').classList.add('show');sessionStorage.setItem('xr-welcome-seen','1')}
+$('welcomeModal').classList.add('show');
 starterModels.forEach(m=>state.models.push({...m}));renderModels();selectModel("starter-pc");
 })();
 </script>
