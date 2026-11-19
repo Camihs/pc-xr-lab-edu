@@ -79,7 +79,7 @@
     <div class="intro-creator"><span>04</span> Sebastián David Mendoza Orozco</div>
    </div>
   </section>
-  <button class="intro-enter" id="enterXR">ENTRAR AL LABORATORIO <span aria-hidden="true">→</span></button>
+  <div class="intro-enter" id="enterXR" role="status" aria-live="polite">ENTRANDO AL LABORATORIO <span aria-hidden="true">→</span></div>
   <div class="intro-foot">APRENDER · EXPLORAR · EXPERIMENTAR</div>
  </main>
 </div>
@@ -245,7 +245,9 @@ function showDiagnostic(){const checks=[['Conexión segura',location.protocol===
 $('exploreFirst').addEventListener('click',()=>{$('welcomeModal').classList.remove('show')});$('startModel').addEventListener('click',()=>{$('welcomeModal').classList.remove('show');if(!state.models.length)addModel({...demo});$('viewerStage').scrollIntoView({behavior:'smooth',block:'center'})});
 $('welcomeModal').addEventListener('click',e=>{if(e.target===$('welcomeModal'))$('welcomeModal').classList.remove('show')});
 window.addEventListener('beforeunload',()=>{state.objectUrls.forEach(u=>URL.revokeObjectURL(u));if('speechSynthesis'in window)speechSynthesis.cancel()});
-document.getElementById('enterXR').addEventListener('click',()=>{const intro=document.getElementById('xrIntro');intro.classList.add('is-leaving');setTimeout(()=>intro.remove(),700);});
+const enterLaboratory=()=>{const intro=document.getElementById('xrIntro');if(!intro||intro.dataset.entering==='true')return;intro.dataset.entering='true';intro.classList.add('is-leaving');setTimeout(()=>intro.remove(),700);};
+const startIntroTimer=()=>{const intro=document.getElementById('xrIntro');if(!intro||intro.dataset.timerStarted==='true')return;intro.dataset.timerStarted='true';setTimeout(enterLaboratory,2500);};
+if(document.readyState==='complete')startIntroTimer();else window.addEventListener('load',startIntroTimer,{once:true});
 starterModels.forEach(m=>state.models.push({...m}));renderModels();selectModel("starter-pc");
 })();
 </script>
