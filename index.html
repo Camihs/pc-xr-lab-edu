@@ -20,9 +20,66 @@
 @media(max-width:760px){.topbar{height:66px}.status-pills{display:none}.hero{display:block;padding-top:22px}.hero-side{text-align:left;margin-top:10px}.layout{grid-template-columns:1fr;padding:10px}.viewer-panel{grid-row:1;min-height:0}.viewer-stage{height:52vh;min-height:350px;margin:10px}.library-panel{grid-row:2}.right-panel{grid-row:3}.right-body{display:block}.tab-content{padding-top:14px}.hardware{padding:15px 10px 35px}.section-head{display:block}.hardware-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:430px){.brand-name{font-size:13px}.brand-icon{width:36px;height:36px}.top-actions .btn{padding:8px 9px;font-size:10px}.mode-tab{padding:8px 9px;font-size:9px}.viewer-stage{min-height:320px}.hardware-grid{grid-template-columns:1fr}.role-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr 1fr}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Pantalla de bienvenida del laboratorio */
+#xrIntro{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:28px 18px;background:radial-gradient(ellipse at 50% 0%,#123c5b 0%,#061522 48%,#020812 100%);overflow:auto;transition:opacity .65s ease,visibility .65s ease}
+#xrIntro.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.intro-shell{width:min(980px,100%);text-align:center;margin:auto}
+.intro-mark{width:68px;height:68px;margin:0 auto 18px;border-radius:20px;display:grid;place-items:center;font-size:28px;font-weight:900;color:#00c4ff;border:1px solid #00c4ff80;background:linear-gradient(145deg,#00b7ff25,#b6e80012);box-shadow:0 0 50px #00b7ff20}
+.intro-kicker{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#b6e800;font-weight:800}
+.intro-title{font-size:clamp(30px,6vw,62px);line-height:1;letter-spacing:-.065em;margin:12px 0 10px;font-weight:800}
+.intro-subtitle{color:#a9c4d7;font-size:13px;line-height:1.7;margin:0 auto;max-width:570px}
+.intro-loading{width:min(330px,85%);margin:27px auto 30px}
+.intro-loading-line{height:4px;background:#18384c;border-radius:20px;overflow:hidden}
+.intro-loading-line span{display:block;height:100%;width:0;background:linear-gradient(90deg,#00b7ff,#b6e800);border-radius:20px;animation:introLoad 2.3s ease forwards}
+.intro-loading-label{display:flex;justify-content:space-between;margin-top:9px;color:#7898ad;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
+@keyframes introLoad{0%{width:0}35%{width:42%}70%{width:76%}100%{width:100%}}
+.intro-team{margin:0 auto 22px;max-width:720px;padding:19px;border:1px solid #21445b;background:#071827cc;border-radius:20px;box-shadow:0 24px 80px #0005}
+.intro-team-label{font-size:10px;letter-spacing:.2em;color:#00b7ff;font-weight:800;text-transform:uppercase;margin-bottom:14px}
+.intro-photo-frame{height:clamp(130px,23vw,220px);border-radius:13px;border:1px dashed #38617a;background:linear-gradient(135deg,#0c2940,#071522);display:flex;align-items:center;justify-content:center;gap:16px;overflow:hidden;margin-bottom:15px}
+.intro-photo-symbol{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:#12364d;color:#00b7ff;font-size:29px;border:1px solid #2d6685}
+.intro-photo-copy{text-align:left;color:#a9c4d7;font-size:11px;line-height:1.6}
+.intro-photo-copy strong{display:block;color:#f7fbff;font-size:13px;margin-bottom:3px}
+.intro-creators{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;text-align:left}
+.intro-creator{padding:11px 12px;border:1px solid #ffffff12;background:#0a2030;border-radius:10px;color:#e9f5fc;font-size:11px;font-weight:650;line-height:1.4}
+.intro-creator:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#b6e800;margin:0 9px 1px 0}
+.intro-enter{min-width:220px;padding:14px 24px;border:0;border-radius:12px;background:linear-gradient(110deg,#9ac500,#c4ed18);color:#132000;font-size:12px;font-weight:850;letter-spacing:.06em;box-shadow:0 12px 34px #9ac50025;transition:.2s}
+.intro-enter:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.intro-foot{margin-top:15px;color:#668397;font-size:9px;letter-spacing:.12em}
+@media(max-width:520px){#xrIntro{padding:22px 14px}.intro-team{padding:13px}.intro-creators{grid-template-columns:1fr}.intro-photo-frame{height:120px}.intro-photo-copy{font-size:10px}}
+
 </style>
 </head>
 <body>
+
+<div id="xrIntro" role="dialog" aria-modal="true" aria-label="Bienvenida a XR Fusion EDU">
+ <main class="intro-shell">
+  <div class="intro-mark">XR</div>
+  <div class="intro-kicker">Laboratorio inmersivo de computación</div>
+  <h1 class="intro-title">XR FUSION EDU</h1>
+  <p class="intro-subtitle">Explora el hardware de una computadora en 3D, descubre cómo se conectan sus componentes y aprende mediante experiencias inmersivas.</p>
+  <div class="intro-loading" aria-label="Cargando laboratorio">
+   <div class="intro-loading-line"><span></span></div>
+   <div class="intro-loading-label"><span>Preparando experiencia</span><span>Iniciando</span></div>
+  </div>
+  <section class="intro-team">
+   <div class="intro-team-label">Desarrollado por</div>
+   <div class="intro-photo-frame">
+    <div class="intro-photo-symbol">⌁</div>
+    <div class="intro-photo-copy"><strong>Equipo creador de XR FUSION EDU</strong>Universidad del Magdalena · Proyecto académico</div>
+   </div>
+   <div class="intro-creators">
+    <div class="intro-creator">Andrés Santiago Rangel De La Cruz</div>
+    <div class="intro-creator">Jorge Daniel Bordeth Jiménez</div>
+    <div class="intro-creator">Fredy Andrés Machado Manjarres</div>
+    <div class="intro-creator">Sebastián David Mendoza Orozco</div>
+   </div>
+  </section>
+  <button class="intro-enter" id="enterXR">ENTRAR AL LABORATORIO <span aria-hidden="true">→</span></button>
+  <div class="intro-foot">APRENDER · EXPLORAR · EXPERIMENTAR</div>
+ </main>
+</div>
+
 <header class="topbar">
  <div class="brand"><div class="brand-icon">⌘</div><div class="brand-name">XR FUSION EDU<small>LABORATORIO INMERSIVO</small></div></div>
  <div class="top-actions"><div class="status-pills"><span class="pill"><b>●</b> 3D ACTIVO</span><span class="pill"><b>●</b> RA LISTA*</span><span class="pill"><b>●</b> RV COMPATIBLE*</span></div><button class="btn ghost" id="diagnosticBtn">Diagnóstico</button><button class="btn primary" id="helpBtn">Ayuda</button></div>
@@ -184,7 +241,7 @@ function showDiagnostic(){const checks=[['Conexión segura',location.protocol===
 $('exploreFirst').addEventListener('click',()=>{$('welcomeModal').classList.remove('show')});$('startModel').addEventListener('click',()=>{$('welcomeModal').classList.remove('show');if(!state.models.length)addModel({...demo});$('viewerStage').scrollIntoView({behavior:'smooth',block:'center'})});
 $('welcomeModal').addEventListener('click',e=>{if(e.target===$('welcomeModal'))$('welcomeModal').classList.remove('show')});
 window.addEventListener('beforeunload',()=>{state.objectUrls.forEach(u=>URL.revokeObjectURL(u));if('speechSynthesis'in window)speechSynthesis.cancel()});
-$('welcomeModal').classList.add('show');
+document.getElementById('enterXR').addEventListener('click',()=>{const intro=document.getElementById('xrIntro');intro.classList.add('is-leaving');setTimeout(()=>intro.remove(),700);});
 starterModels.forEach(m=>state.models.push({...m}));renderModels();selectModel("starter-pc");
 })();
 </script>
